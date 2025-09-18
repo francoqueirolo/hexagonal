@@ -5,24 +5,29 @@ import com.tecsup.example.hexagonal.domain.model.User;
 import com.tecsup.example.hexagonal.infrastructure.adapter.output.persistence.entity.UserEntity;
 import com.tecsup.example.hexagonal.infrastructure.adapter.output.persistence.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequiredArgsConstructor
 public class UserRepositoryAdapter implements UserRepository {
 
     private final UserJpaRepository jpaRepository;
 
+    private final UserMapper userMapper;
+
     @Override
     public User save(User user) {
 
         // Domain to Entity
-        UserEntity userEntity = UserMapper.toEntity(user); // (UserEntity)user;
+        UserEntity userEntity = this.userMapper.toEntity(user);
 
         // Save entity
         UserEntity entityCreated = this.jpaRepository.save(userEntity);
 
-        // Entity to Domain
-        User userCreated = UserMapper.toDomain(entityCreated); //(User)entityCreated;
+        log.info("User created: {}", entityCreated);
 
-        return userCreated;
+        // Entity to Domain
+        return this.userMapper.toDomain(entityCreated);
     }
 }
