@@ -12,7 +12,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User newUser) {
-        return null;
+
+        // Validation logic can be added here
+
+        // Save the user using the repository
+        return this.userRepository.save(newUser);
+
     }
 
     @Override
