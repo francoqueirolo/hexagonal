@@ -1,38 +1,29 @@
 package com.tecsup.example.hexagonal.infrastructure.adapter.output.persistence.mapper;
 
+
 import com.tecsup.example.hexagonal.domain.model.User;
 import com.tecsup.example.hexagonal.infrastructure.adapter.output.persistence.entity.UserEntity;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
-public class UserMapper {
+@Mapper(componentModel = "spring")
+public interface UserMapper {
 
-
-    // Domain to Entity
-    //UserEntity userEntity = null; // (UserEntity)user;
+    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     /**
-     * Convert UserEntity to User domain
+     * Convert User domain to UserEntity
      * @param domain
      * @return
      */
-    public static UserEntity toEntity(User domain){
-        UserEntity userEntity = new UserEntity();
-        userEntity.setId(domain.getId());
-        userEntity.setName(domain.getName());
-        userEntity.setEmail(domain.getEmail());
-        return userEntity;
-    }
-
-    // User userCreated = null; //(User)entityCreated;
+    UserEntity toEntity(User domain);
 
     /**
      * Convert UserEntity to User domain
      * @param entity
      * @return
      */
-    public static User toDomain(UserEntity entity){
-        return new User(entity.getId(),
-                entity.getName(),entity.getEmail());
-    }
+    User toDomain(UserEntity entity);
 
 
 }
