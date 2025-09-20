@@ -5,9 +5,10 @@ import com.tecsup.example.hexagonal.domain.model.User;
 import com.tecsup.example.hexagonal.infrastructure.adapter.output.persistence.entity.UserEntity;
 import com.tecsup.example.hexagonal.infrastructure.adapter.output.persistence.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
 
+@Repository
 @Slf4j
 @RequiredArgsConstructor
 public class UserRepositoryAdapter implements UserRepository {
