@@ -2,6 +2,8 @@ package com.tecsup.example.hexagonal.infrastructure.adapter.output.persistence.m
 
 
 import com.tecsup.example.hexagonal.domain.model.User;
+import com.tecsup.example.hexagonal.infrastructure.adapter.input.rest.dto.UserRequest;
+import com.tecsup.example.hexagonal.infrastructure.adapter.input.rest.dto.UserResponse;
 import com.tecsup.example.hexagonal.infrastructure.adapter.output.persistence.entity.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -25,5 +27,7 @@ public interface UserMapper {
      */
     User toDomain(UserEntity entity);
 
+    User toDomain(UserRequest request);
 
+    UserResponse toResponse(User createUser);
 }

@@ -27,8 +27,13 @@ public class UserController {
 
         log.info("Creating request with name: {} and email: {}", request.getName(), request.getEmail());
 
+        User newUser = this.userMapper.toDomain(request);
 
-        return null;
+        User createUser = this.userService.createUser(newUser);
+
+        UserResponse response = this.userMapper.toResponse(createUser);
+
+        return response;
     }
 
 }
