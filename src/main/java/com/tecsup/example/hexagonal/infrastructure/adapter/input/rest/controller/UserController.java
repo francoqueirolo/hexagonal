@@ -3,6 +3,8 @@ package com.tecsup.example.hexagonal.infrastructure.adapter.input.rest.controlle
 
 import com.tecsup.example.hexagonal.application.port.input.UserService;
 import com.tecsup.example.hexagonal.domain.model.User;
+import com.tecsup.example.hexagonal.infrastructure.adapter.input.rest.dto.UserRequest;
+import com.tecsup.example.hexagonal.infrastructure.adapter.input.rest.dto.UserResponse;
 import com.tecsup.example.hexagonal.infrastructure.adapter.output.persistence.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +23,11 @@ public class UserController {
     private final UserMapper userMapper;
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        log.info("Creating user with name: {} and email: {}", user.getName(), user.getEmail());
+    public UserResponse createUser(@RequestBody UserRequest request) {
+
+        log.info("Creating request with name: {} and email: {}", request.getName(), request.getEmail());
+
+
         return null;
     }
 
