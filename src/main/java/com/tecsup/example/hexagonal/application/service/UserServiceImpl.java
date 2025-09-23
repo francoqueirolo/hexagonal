@@ -22,6 +22,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUser(Long id) {
-        return null;
+
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException("Invalid user ID");
+        }
+
+        User user = this.userRepository.findById(id)
+                .orElseThrow( ()-> new IllegalArgumentException("User not found with ID: " + id) );
+
+        return user;
     }
 }

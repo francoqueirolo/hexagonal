@@ -8,10 +8,7 @@ import com.tecsup.example.hexagonal.infrastructure.adapter.input.rest.dto.UserRe
 import com.tecsup.example.hexagonal.infrastructure.adapter.output.persistence.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,5 +32,17 @@ public class UserController {
 
         return response;
     }
+
+    @GetMapping("/{id}")
+    public UserResponse getUser(@PathVariable Long id) {
+
+        User user = this.userService.findUser(id);
+
+        UserResponse response = this.userMapper.toResponse(user);
+
+        return response;
+
+    }
+
 
 }
