@@ -2,6 +2,7 @@ package com.tecsup.example.hexagonal.application.service;
 
 import com.tecsup.example.hexagonal.application.port.input.UserService;
 import com.tecsup.example.hexagonal.application.port.output.UserRepository;
+import com.tecsup.example.hexagonal.domain.exception.UserNotFoundException;
 import com.tecsup.example.hexagonal.domain.model.User;
 import lombok.RequiredArgsConstructor;
 
@@ -28,7 +29,7 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = this.userRepository.findById(id)
-                .orElseThrow( ()-> new IllegalArgumentException("User not found with ID: " + id) );
+                .orElseThrow( ()-> new UserNotFoundException(id) );
 
         return user;
     }

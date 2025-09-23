@@ -2,12 +2,14 @@ package com.tecsup.example.hexagonal.infrastructure.adapter.input.rest.controlle
 
 
 import com.tecsup.example.hexagonal.application.port.input.UserService;
+import com.tecsup.example.hexagonal.domain.exception.UserNotFoundException;
 import com.tecsup.example.hexagonal.domain.model.User;
 import com.tecsup.example.hexagonal.infrastructure.adapter.input.rest.dto.UserRequest;
 import com.tecsup.example.hexagonal.infrastructure.adapter.input.rest.dto.UserResponse;
 import com.tecsup.example.hexagonal.infrastructure.adapter.output.persistence.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -34,13 +36,20 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserResponse getUser(@PathVariable Long id) {
+    public ResponseEntity<UserResponse> getUser(@PathVariable Long id) {
+        try {
 
-        User user = this.userService.findUser(id);
+            User user = this.userService.findUser(id);
+            UserResponse response = this.userMapper.toResponse(user);
+            return ResponseEntity.ok(response);
+        } catch (UserNotFoundException e) {
+            log.warn("User not found with ID: {}", id);
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            log.error("Error fetching user with ID: {}", id, e);
+            return ResponseEntity.badRequest().build();
 
-        UserResponse response = this.userMapper.toResponse(user);
-
-        return response;
+        }
 
     }
 
