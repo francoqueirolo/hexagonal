@@ -9,3 +9,12 @@ docker run --name mysql-hexagonal -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATAB
 ```
 docker exec -it mysql-hexagonal mysql -uroot -ppassword
 ```
+
+```
+mvn flyway:migrate
+
+mvn flyway:info
+
+mvn flyway:clean
+
+```
