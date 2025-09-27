@@ -19,7 +19,11 @@ public class UserServiceImpl implements UserService {
         validateUserInput(newUser);
 
         // Save the user using the repository
-        return this.userRepository.save(newUser);
+        User user = this.userRepository.save(newUser);
+
+        //user.setName("Margot"); // Garbage line for testing purposes
+
+        return user;
 
     }
 
