@@ -31,8 +31,25 @@ class UserServiceImplTest {
     @Test
     void createUser() {
 
+        Long ID = 50L;
+        String NAME = "Juana";
+        String EMAIL = "juana@demo.com";
 
+        // Initial Condition
+        User newUser = new User(null, NAME, EMAIL); // UserRequest
+        User savedUser = new User(ID, NAME, EMAIL);  // Save UserEntity
 
+        // Mocking the repository behavior
+        when(userRepository.save(newUser)).thenReturn(savedUser);
+
+        // Execute the service method
+        User realUser = userService.createUser(newUser);
+
+        // Validate the results
+        assertNotNull(realUser);
+        assertEquals(ID, realUser.getId());
+        assertEquals(NAME, realUser.getName());
+        assertEquals(EMAIL, realUser.getEmail());
 
     }
 
