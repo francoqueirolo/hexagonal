@@ -24,9 +24,13 @@ public class UserController {
     @PostMapping
     public UserResponse createUser(@RequestBody UserRequest request) {
 
+        log.info("UserRequest: {}", request);
+
         log.info("Creating request with name: {} and email: {}", request.getName(), request.getEmail());
 
         User newUser = this.userMapper.toDomain(request);
+
+        log.info("Mapped User entity: {}", newUser);
 
         User createUser = this.userService.createUser(newUser);
 

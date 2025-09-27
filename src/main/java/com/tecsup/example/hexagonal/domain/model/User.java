@@ -23,4 +23,9 @@ public class User {
                 email.length() > 5;
     }
 
+    @Override
+    public String toString() {
+        return "User{id=" + id + ", name='" + name + "', email='" + email + "'}";
+    }
+
 }
