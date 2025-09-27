@@ -23,6 +23,12 @@ public class User {
                 email.length() > 5;
     }
 
+    public boolean hasValidName() {
+        return name != null &&
+                !name.trim().isEmpty() &&
+                name.length() >= 2;
+    }
+
     @Override
     public String toString() {
         return "User{id=" + id + ", name='" + name + "', email='" + email + "'}";
