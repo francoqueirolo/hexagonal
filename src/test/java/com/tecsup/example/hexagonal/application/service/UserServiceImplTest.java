@@ -1,6 +1,7 @@
 package com.tecsup.example.hexagonal.application.service;
 
 import com.tecsup.example.hexagonal.application.port.output.UserRepository;
+import com.tecsup.example.hexagonal.domain.exception.UserNotFoundException;
 import com.tecsup.example.hexagonal.domain.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,10 @@ class UserServiceImplTest {
 
     @Test
     void createUser() {
+
+
+
+
     }
 
     @Test
@@ -55,6 +60,20 @@ class UserServiceImplTest {
         assertEquals(EMAIL, realUser.getEmail());
 
     }
+
+    @Test
+    public void findUser_NotFound() {
+        Long ID_UNKNOW = 999L;
+
+        // Mocking the repository behavior to return empty
+        when(userRepository.findById(ID_UNKNOW)).thenReturn(Optional.empty());
+
+        // Execute the service method and expect an exception
+        assertThrows(UserNotFoundException.class,
+                () -> userService.findUser(ID_UNKNOW));
+
+    }
+
 }
 
 
