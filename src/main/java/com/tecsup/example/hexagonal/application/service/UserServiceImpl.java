@@ -41,8 +41,6 @@ public class UserServiceImpl implements UserService {
 
     private void validateUserInput(User newUser) {
 
-        String email = newUser.getEmail();
-
         if (!newUser.hasValidName())
             throw new InvalidUserDataException("Invalid email");
 

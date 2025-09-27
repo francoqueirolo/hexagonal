@@ -24,12 +24,15 @@ public class UserController {
     private final UserMapper userMapper;
 
     @PostMapping
-    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest request) {
+    public ResponseEntity<UserResponse> createUser(@RequestBody(required = false) UserRequest request) {
         try {
 
-            log.info("UserRequest: {}", request);
-            log.info("Creating request with name: {} and email: {}", request.getName(), request.getEmail());
+            if (request == null) {
+                log.warn("Received null UserRequest");
+                return ResponseEntity.badRequest().build();
+            }
 
+            log.info("Creating request with name: {} and email: {}", request.getName(), request.getEmail());
             User newUser = this.userMapper.toDomain(request);
 
             log.info("Mapped User entity: {}", newUser);
