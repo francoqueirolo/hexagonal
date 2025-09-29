@@ -2,6 +2,7 @@ package com.tecsup.example.hexagonal.infrastructure.adapter.input.rest.controlle
 
 
 import com.tecsup.example.hexagonal.application.port.input.UserService;
+import com.tecsup.example.hexagonal.domain.exception.InvalidUserDataException;
 import com.tecsup.example.hexagonal.domain.exception.UserNotFoundException;
 import com.tecsup.example.hexagonal.domain.model.User;
 import com.tecsup.example.hexagonal.infrastructure.adapter.input.rest.dto.UserRequest;
@@ -9,6 +10,7 @@ import com.tecsup.example.hexagonal.infrastructure.adapter.input.rest.dto.UserRe
 import com.tecsup.example.hexagonal.infrastructure.adapter.output.persistence.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,17 +24,31 @@ public class UserController {
     private final UserMapper userMapper;
 
     @PostMapping
-    public UserResponse createUser(@RequestBody UserRequest request) {
+    public ResponseEntity<UserResponse> createUser(@RequestBody(required = false) UserRequest request) {
+        try {
 
-        log.info("Creating request with name: {} and email: {}", request.getName(), request.getEmail());
+            if (request == null) {
+                log.warn("Received null UserRequest");
+                return ResponseEntity.badRequest().build();
+            }
 
-        User newUser = this.userMapper.toDomain(request);
+            log.info("Creating request with name: {} and email: {}", request.getName(), request.getEmail());
+            User newUser = this.userMapper.toDomain(request);
 
-        User createUser = this.userService.createUser(newUser);
+            log.info("Mapped User entity: {}", newUser);
+            User createUser = this.userService.createUser(newUser);
 
-        UserResponse response = this.userMapper.toResponse(createUser);
+            UserResponse response = this.userMapper.toResponse(createUser);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
-        return response;
+        } catch (InvalidUserDataException e) {
+            log.warn(e.getMessage());
+            return ResponseEntity.badRequest().build();
+
+        } catch (Exception e) {
+            log.error("Error creating user: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/{id}")
@@ -55,3 +71,32 @@ public class UserController {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
