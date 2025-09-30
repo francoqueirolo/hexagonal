@@ -19,7 +19,7 @@ public class SpringSecurity {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/users/**").permitAll() //.authenticated()
+                        .requestMatchers("/api/users/**").authenticated()
                         .anyRequest().authenticated()
                 );
         return http.build();
