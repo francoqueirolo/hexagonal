@@ -1,20 +1,52 @@
 package com.tecsup.example.hexagonal.application.service;
 
 import com.tecsup.example.hexagonal.application.port.input.AuthService;
+import com.tecsup.example.hexagonal.application.port.output.UserRepository;
+import com.tecsup.example.hexagonal.domain.model.User;
 import com.tecsup.example.hexagonal.infrastructure.adapter.input.rest.dto.AuthResponse;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
+    private final UserRepository userRepository;
+
     @Override
     public AuthResponse login(String email, String password) {
 
-        return null;
+        // Validate data
+        validateData(email, password);
+
+        // Find user by email
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid email or password"));
+
+        // Check password
+        if (!user.getPassword().equals(password)) {
+            throw new IllegalArgumentException("Invalid email or password");
+        }
+        // Create AuthResponse
+        AuthResponse authResponse = new AuthResponse();
+//        authResponse.setUserId(user.getId());
+//        authResponse.setEmail(user.getEmail());
+        authResponse.setToken(generateToken(user.getEmail()));
+
+        return authResponse;
     }
 
     @Override
     public String generateToken(String email) {
         return "";
     }
+
+
+    private void validateData(String email, String password) {
+        if (email == null || email.isEmpty()) {
+            throw new IllegalArgumentException("Email is required");
+        }
+        if (password == null || password.isEmpty()) {
+            throw new IllegalArgumentException("Password is required");
+        }
+    }
+
 }
