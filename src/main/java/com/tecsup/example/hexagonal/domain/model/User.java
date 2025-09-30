@@ -14,6 +14,7 @@ public class User {
     private Long id;
     private String name;
     private String email;
+    private String password;
 
     // Business logic methods - PURE domain logic!
     public boolean hasValidEmail() {

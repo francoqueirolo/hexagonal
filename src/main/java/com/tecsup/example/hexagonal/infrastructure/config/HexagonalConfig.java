@@ -17,8 +17,8 @@ public class HexagonalConfig {
     }
 
     @Bean
-    public AuthService authService() {
-        return new AuthServiceImpl();
+    public AuthService authService(UserRepository userRepository) {
+        return new AuthServiceImpl(userRepository);
     }
 
 }

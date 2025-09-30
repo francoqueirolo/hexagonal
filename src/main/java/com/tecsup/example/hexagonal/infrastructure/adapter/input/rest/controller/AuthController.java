@@ -22,8 +22,7 @@ public class AuthController {
 
 
     /**
-     *    //LoginRequest (email, password)
-     *    AuthResponse (token, user)
+     *
      * @param request
      */
     @PostMapping("/login")
