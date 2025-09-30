@@ -1,8 +1,10 @@
 package com.tecsup.example.hexagonal.application.port.input;
 
+import com.tecsup.example.hexagonal.infrastructure.adapter.input.rest.dto.AuthResponse;
+
 public interface AuthService {
 
-    void login(String email, String password);
+    AuthResponse login(String email, String password);
 
     String generateToken(String email);
 
