@@ -7,6 +7,8 @@ import com.tecsup.example.hexagonal.application.service.AuthServiceImpl;
 import com.tecsup.example.hexagonal.application.service.UserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class HexagonalConfig {
@@ -17,8 +19,13 @@ public class HexagonalConfig {
     }
 
     @Bean
-    public AuthService authService(UserRepository userRepository) {
-        return new AuthServiceImpl(userRepository);
+    public AuthService authService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        return new AuthServiceImpl(userRepository, passwordEncoder);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }

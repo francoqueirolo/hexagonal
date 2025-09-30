@@ -17,7 +17,7 @@ VALUES (
     'Admin',
     'User',
     'admin@hexagonal-demo.com',
-    '$2a$12$gBpsIP1vjx4scbpkKgh8w.LA2n0zOie4S86mSJ6D/ByjKdAInZOG2',
+    '$2a$12$gBpsIP1vjx4scbpkKgh8w.LA2n0zOie4S86mSJ6D/ByjKdAInZOG2', // admin123
     'LOCAL',
     TRUE,
     2,
