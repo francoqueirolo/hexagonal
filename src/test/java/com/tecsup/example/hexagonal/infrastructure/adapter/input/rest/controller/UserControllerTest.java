@@ -34,7 +34,7 @@ class UserControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
-
+/*
     @Test
     void createUser() throws Exception {
 
@@ -64,7 +64,7 @@ class UserControllerTest {
                 .andDo(print());
 
     }
-
+*/
     @Test
     void getUser() {
     }

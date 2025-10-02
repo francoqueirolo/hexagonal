@@ -5,11 +5,13 @@ import com.tecsup.example.hexagonal.application.port.output.UserRepository;
 import com.tecsup.example.hexagonal.domain.model.User;
 import com.tecsup.example.hexagonal.infrastructure.adapter.input.rest.dto.AuthResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public AuthResponse login(String email, String password) {
@@ -22,21 +24,23 @@ public class AuthServiceImpl implements AuthService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password"));
 
         // Check password
-        if (!user.getPassword().equals(password)) {
+        String passwordEncrypted = user.getPassword();
+
+        if (!passwordEncoder.matches(password, passwordEncrypted)) {
             throw new IllegalArgumentException("Invalid email or password");
         }
         // Create AuthResponse
         AuthResponse authResponse = new AuthResponse();
 //        authResponse.setUserId(user.getId());
 //        authResponse.setEmail(user.getEmail());
-        authResponse.setToken(generateToken(user.getEmail()));
+        authResponse.setToken(generateToken(user));
 
         return authResponse;
     }
 
     @Override
-    public String generateToken(String email) {
-        return "";
+    public String generateToken(User user) {
+        return "12oiehdpwa9dshcaep9dsuhon=u323";
     }
 
 
