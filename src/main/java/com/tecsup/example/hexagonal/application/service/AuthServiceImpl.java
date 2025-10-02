@@ -23,12 +23,18 @@ public class AuthServiceImpl implements AuthService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password"));
 
+        // Is user enabled?
+        if (!user.isEnabled())
+            throw new IllegalArgumentException("User account is disabled");
+
+
         // Check password
         String passwordEncrypted = user.getPassword();
 
         if (!passwordEncoder.matches(password, passwordEncrypted)) {
             throw new IllegalArgumentException("Invalid email or password");
         }
+
         // Create AuthResponse
         AuthResponse authResponse = new AuthResponse();
 //        authResponse.setUserId(user.getId());
