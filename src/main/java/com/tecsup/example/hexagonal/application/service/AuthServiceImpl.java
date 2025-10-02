@@ -29,6 +29,7 @@ public class AuthServiceImpl implements AuthService {
         if (!passwordEncoder.matches(password, passwordEncrypted)) {
             throw new IllegalArgumentException("Invalid email or password");
         }
+
         // Create AuthResponse
         AuthResponse authResponse = new AuthResponse();
 //        authResponse.setUserId(user.getId());
