@@ -14,6 +14,8 @@ public class User {
     private String password;
     private boolean enabled;
 
+    private Role role;
+
     // Business logic methods - PURE domain logic!
     public boolean hasValidEmail() {
         return email != null &&
