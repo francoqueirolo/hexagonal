@@ -4,6 +4,7 @@ import com.tecsup.example.hexagonal.application.port.input.UserService;
 import com.tecsup.example.hexagonal.application.port.output.UserRepository;
 import com.tecsup.example.hexagonal.domain.exception.InvalidUserDataException;
 import com.tecsup.example.hexagonal.domain.exception.UserNotFoundException;
+import com.tecsup.example.hexagonal.domain.model.Role;
 import com.tecsup.example.hexagonal.domain.model.User;
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +18,10 @@ public class UserServiceImpl implements UserService {
 
         // Validation logic can be added here
         validateUserInput(newUser);
+
+        // Set default values
+        if (newUser.getRole() == null)
+            newUser.setRole(Role.USER);
 
         // Save the user using the repository
         User user = this.userRepository.save(newUser);
