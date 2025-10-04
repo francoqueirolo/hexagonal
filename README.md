@@ -9,3 +9,29 @@ docker run --name mysql-hexagonal -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATAB
 ```
 docker exec -it mysql-hexagonal mysql -uroot -ppassword
 ```
+
+### Tarea
+
+Crear los campos apellido materno, edad , dni, numero telefonico
+
+1.- 
+Modificar la logica de creacion de usuarios para que soporte los nuevos campos
+Debera buscar por apellido paterno
+Debera buscar por dni
+Debera buscar los usuarios que son menores de una edad
+
+2.-
+Debera trabajar con los siguiente roles
+ADMIN
+MONITOR
+USER
+
+3.- 
+La busqueda por apellido paterno y dni solo podra ser realizada por ADMIN
+La busqueda por edad podra ser realizada por el MONITOR
+
+Realizar las pruebas de las nuevas funcionalidades
+
+
+
+
