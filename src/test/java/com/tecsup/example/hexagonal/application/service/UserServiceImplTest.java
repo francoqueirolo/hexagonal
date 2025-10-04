@@ -27,7 +27,7 @@ class UserServiceImplTest {
         // Aquí puedes inicializar los mocks y el servicio
         userService = new UserServiceImpl(userRepository);
     }
-/*
+
     @Test
     void createUser() {
 
@@ -36,8 +36,16 @@ class UserServiceImplTest {
         String EMAIL = "juana@demo.com";
 
         // Initial Condition
-        User newUser = new User(null, NAME, EMAIL); // UserRequest
-        User savedUser = new User(ID, NAME, EMAIL);  // Save UserEntity
+        User newUser = User.builder()
+                .name(NAME)
+                .email(EMAIL)
+                .build();  // new User(NAME, EMAIL);
+
+        User savedUser = User.builder()
+                .id(ID)
+                .name(NAME)
+                .email(EMAIL)
+                .build(); // new User(ID, NAME, EMAIL);
 
         // Mocking the repository behavior
         when(userRepository.save(newUser)).thenReturn(savedUser);
@@ -60,7 +68,11 @@ class UserServiceImplTest {
         String EMAIL = "jaime@demo.com";
 
         // Initial Condition
-        User existingUser = new User(ID, NAME, EMAIL);
+        User existingUser = User.builder()
+                            .id(ID)
+                            .name(NAME)
+                            .email(EMAIL)
+                            .build(); // new User(ID, NAME, EMAIL);
 
         // Mocking the repository behavior
         when(userRepository.findById(100L)).thenReturn(Optional.of(existingUser));
@@ -90,7 +102,7 @@ class UserServiceImplTest {
                 () -> userService.findUser(ID_UNKNOW));
 
     }
-*/
+
 }
 
 
