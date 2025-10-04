@@ -38,7 +38,7 @@ public class AuthFilter extends OncePerRequestFilter {
 
             log.info("Authenticated user: {}", username);
 
-            Collection<? extends GrantedAuthority> authorities = null; //jwtTokenProvider.getRoleFromToken(token);
+            Collection<? extends GrantedAuthority> authorities = jwtTokenProvider.getRoleFromToken(token);
             log.info("User role: {}", authorities);
 
             UsernamePasswordAuthenticationToken authentication =
