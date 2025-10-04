@@ -40,7 +40,8 @@ class UserControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    //@Test
+    @Test
+    @WithMockUser(roles = "ADMIN")
     void createUser() throws Exception {
 
         Long ID = 50L;
