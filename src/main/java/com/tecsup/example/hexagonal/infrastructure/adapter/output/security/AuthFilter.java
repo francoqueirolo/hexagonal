@@ -38,8 +38,11 @@ public class AuthFilter extends OncePerRequestFilter {
 
             log.info("Authenticated user: {}", username);
 
+            Collection<? extends GrantedAuthority> authorities = null; //jwtTokenProvider.getRoleFromToken(token);
+            log.info("User role: {}", authorities);
+
             UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(username, null, null);
+                    new UsernamePasswordAuthenticationToken(username, null, authorities);
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
