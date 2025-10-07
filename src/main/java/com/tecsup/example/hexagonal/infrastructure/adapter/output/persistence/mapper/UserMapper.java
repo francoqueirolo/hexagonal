@@ -28,12 +28,15 @@ public interface UserMapper {
      */
     User toDomain(UserEntity entity);
 
-
     @Mapping(target = "id", ignore = true) // New users don't have ID
     @Mapping(target = "name", source = "name")
     @Mapping(target = "email", source = "email")
-    User toDomain(UserRequest request);
+    @Mapping(target = "lastName", source = "lastName")
+    @Mapping(target = "middleName", source = "middleName")
+    @Mapping(target = "dni", source = "dni")
+    @Mapping(target = "age", source = "age")
 
+    User toDomain(UserRequest request);
 
     UserResponse toResponse(User createUser);
 }

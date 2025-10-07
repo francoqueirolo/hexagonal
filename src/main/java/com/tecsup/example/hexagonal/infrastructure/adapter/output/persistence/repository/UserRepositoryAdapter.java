@@ -45,4 +45,28 @@ public class UserRepositoryAdapter implements UserRepository {
     public Optional<User> findByEmail(String email) {
         return this.jpaRepository.findByEmail(email).map(this.userMapper::toDomain);
     }
+
+    @Override
+    public Optional<User> findByLastName(String lastName) {
+        return this.jpaRepository.findByLastName(lastName)
+                .stream()
+                .findFirst()
+                .map(this.userMapper::toDomain);
+    }
+
+    @Override
+    public Optional<User> findByDocumentNumber(Integer dni) {
+        return this.jpaRepository.findByDni(dni)
+                .stream()
+                .findFirst()
+                .map(this.userMapper::toDomain);
+    }
+
+    @Override
+    public Optional<User> findByAgeLessThan(int age) {
+        return this.jpaRepository.findByAgeLessThan(age)
+                .stream()
+                .findFirst()
+                .map(this.userMapper::toDomain);
+    }
 }

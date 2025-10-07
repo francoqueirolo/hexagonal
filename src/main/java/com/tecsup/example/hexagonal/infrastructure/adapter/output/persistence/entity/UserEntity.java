@@ -27,6 +27,21 @@ public class UserEntity {
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
+    @Column(name = "last_name", nullable = false, length = 100)
+    private String lastName;
+
+    @Column(name = "middle_name", nullable = false, length = 100)
+    private String middleName;
+
+    @Column(name = "dni", nullable = false, length = 8)
+    private Integer dni;
+
+    @Column(name = "phone", nullable = false, length = 50)
+    private String phone;
+
+    @Column(name = "age", nullable = false)
+    private int age;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", nullable = false)
     private RoleEntity role;

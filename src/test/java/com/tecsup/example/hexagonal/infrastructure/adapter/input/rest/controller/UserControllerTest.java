@@ -1,22 +1,18 @@
 package com.tecsup.example.hexagonal.infrastructure.adapter.input.rest.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tecsup.example.hexagonal.application.port.input.UserService;
 import com.tecsup.example.hexagonal.domain.model.User;
 import com.tecsup.example.hexagonal.infrastructure.adapter.input.rest.dto.UserRequest;
 import com.tecsup.example.hexagonal.infrastructure.adapter.input.rest.dto.UserResponse;
 import com.tecsup.example.hexagonal.infrastructure.adapter.output.persistence.mapper.UserMapper;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -48,19 +44,49 @@ class UserControllerTest {
         String EMAIL = "juana@demo.com";
 
         // Initial Condition
-        UserRequest request = new UserRequest(NAME, EMAIL);
-        User newUser =  User.builder()
+        UserRequest request = new UserRequest(
+                NAME,
+                EMAIL,
+                "juana",
+                true,
+                "Diaz",
+                "Juanita",
+                12345678,
+                "1234567890",
+                25
+                //Role.ADMIN
+        );
+        User newUser = User.builder()
                 .name(NAME)
                 .email(EMAIL)
-                .build(); //new User(null, NAME, EMAIL); // UserRequest
+                .password("juana")
+                .enabled(true)
+                .lastName("Diaz")
+                .middleName("Juanita")
+                .dni(12345678)
+                .phone("1234567890")
+                .age(25)
+                //.role(Role.ADMIN)
+                .build();
+
         User savedUser = User.builder()
                 .id(ID)
                 .name(NAME)
                 .email(EMAIL)
                 .build();
 
-                //new User(ID, NAME, EMAIL);  // Save UserEntity
-        UserResponse response   = new UserResponse(ID, NAME, EMAIL);
+        UserResponse response = new UserResponse(
+                ID,
+                NAME,
+                EMAIL,
+                "root",
+                true,
+                "Juanita",
+                "Diaz",
+                1234567890,
+                "1234567890",
+                25
+        );
 
         // Mocking the repository behavior
         when(userMapper.toDomain(request)).thenReturn(newUser);
