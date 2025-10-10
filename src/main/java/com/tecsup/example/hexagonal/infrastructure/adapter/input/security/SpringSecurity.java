@@ -25,8 +25,8 @@ public class SpringSecurity {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/auth/**").permitAll()
-                        //.requestMatchers("/api/users/**").authenticated()
-                        .requestMatchers("/api/users/**").hasAnyRole("USER","ADMIN")
+                        .requestMatchers("/api/users/**").authenticated()
+                        //.requestMatchers("/api/users/**").hasAnyRole("USER","ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class) ;

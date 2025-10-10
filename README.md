@@ -33,6 +33,19 @@ Debera trabajar con los siguientes roles
 4.- 
 Realizar las pruebas de las nuevas funcionalidades
 
+### Evidencias Tarea:
+#### 1. Login role ADMIN
+![1.png](assets/1.png)
 
+#### 2. Busqueda por apellido paterno para role ADMIN
+![1.png](assets/2.png)
 
+#### 3. Busqueda por DNI para role ADMIN
+![1.png](assets/3.png)
+
+#### 4. Login role MONITOR
+![1.png](assets/4.png)
+
+#### 5. Busqueda por EDAD menor que [edad] para role MONITOR
+![1.png](assets/5.png)
 

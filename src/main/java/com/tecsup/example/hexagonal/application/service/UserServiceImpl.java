@@ -8,6 +8,9 @@ import com.tecsup.example.hexagonal.domain.model.Role;
 import com.tecsup.example.hexagonal.domain.model.User;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Collections;
+import java.util.List;
+
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
@@ -32,8 +35,6 @@ public class UserServiceImpl implements UserService {
 
     }
 
-
-
     @Override
     public User findUser(Long id) {
 
@@ -47,15 +48,45 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Override
+    public User findUserByLastName(String lastname) {
+       User user = this.userRepository.findByLastName(lastname)
+                .orElseThrow(()-> new UserNotFoundException(lastname));
+
+        return user;
+    }
+
+    @Override
+    public User findUserByDocumentNumber(Integer dni) {
+        if (dni == null || dni <= 0) {
+            throw new IllegalArgumentException("Invalid user DNI");
+        }
+
+        User user = this.userRepository.findByDocumentNumber(dni)
+                .orElseThrow( ()-> new UserNotFoundException(dni) );
+        return user;
+    }
+
+    @Override
+    public List<User> findUsersByAge(Integer age) {
+        if(age == null)
+            throw new IllegalArgumentException("Invalid user age");
+
+        return this.userRepository.findByAgeLessThan(age)
+                .map(Collections::singletonList)
+                .orElse(Collections.emptyList());
+    }
 
     private void validateUserInput(User newUser) {
 
         if (!newUser.hasValidName())
-            throw new InvalidUserDataException("Invalid email");
+            throw new InvalidUserDataException("Invalid name");
 
         if (!newUser.hasValidEmail())
             throw new InvalidUserDataException("Invalid email");
 
+        if (!newUser.hasValidDNI())
+            throw new InvalidUserDataException("Invalid documentNumber");
 
     }
 }

@@ -14,8 +14,17 @@ public class User {
     private String email;
     private String password;
     private boolean enabled;
-
+    private String lastName;
+    private String middleName;
+    private Integer dni;
+    private String phone;
+    private int age;
     private Role role;
+
+    public boolean hasValidDNI() {
+        return dni != null &&
+                dni > 0;
+    }
 
     // Business logic methods - PURE domain logic!
     public boolean hasValidEmail() {
